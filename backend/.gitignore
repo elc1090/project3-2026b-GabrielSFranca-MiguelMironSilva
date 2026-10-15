@@ -1,0 +1,4 @@
+.env
+.venv
+srv-string.txt
+atlas-credentials.env
