@@ -1,4 +1,9 @@
-.env
-.venv
+.env*
+.venv/
+__pycache__/
 srv-string.txt
 atlas-credentials.env
+
+# Database files
+*.db
+*.sqlite
