@@ -1,0 +1,203 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  color-scheme: light dark;
+
+  
+  /* Cores: tema claro */
+  --cor-fundo: #ffffff;
+  --cor-superficie: #fafafa;
+  --cor-superficie-2: #f4f4f5; /* hover e áreas rebaixadas */
+  --cor-borda: #e4e4e7;
+  --cor-borda-forte: #d4d4d8;
+  --cor-texto: #18181b;
+  --cor-texto-suave: #52525b;
+  --cor-texto-fraco: #71717a;
+  --cor-destaque: #4f46e5;
+  --cor-destaque-hover: #4338ca;
+  --cor-destaque-texto: #ffffff; /* texto sobre fundos de destaque */
+  --cor-perigo: #dc2626;
+  --cor-sucesso: #15803d;
+  --cor-foco: var(--cor-destaque);
+
+  /* Espaçamento (múltiplos de 4px) */
+  --espaco-1: 0.25rem;
+  --espaco-2: 0.5rem;
+  --espaco-3: 0.75rem;
+  --espaco-4: 1rem;
+  --espaco-5: 1.5rem;
+  --espaco-6: 2rem;
+  --espaco-7: 3rem;
+  --espaco-8: 4rem;
+
+    /* Forma */
+  --raio-p: 0.375rem;
+  --raio: 0.5rem;
+  --raio-g: 0.75rem;
+  --sombra-p: 0 1px 2px rgb(0 0 0 / 0.05);
+  --transicao: 150ms ease;
+  --largura-conteudo: 68rem;
+
+  /* Tipografia (a variável --fonte-inter é definida pelo next/font, se usado) */
+
+  --font-base: var(--font-inter, "Inter"), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --texto-pp: 0.75rem;
+  --texto-p: 0.875rem;
+  --texto-m: 1rem;
+  --texto-g: 1.25rem;
+  --texto-xg: 1.75rem;
+  --texto-2xg: 2.25rem;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --cor-fundo: #09090b;
+    --cor-superficie: #111113;
+    --cor-superficie-2: #18181b;
+    --cor-borda: #27272a;
+    --cor-borda-forte: #3f3f46;
+    --cor-texto: #fafafa;
+    --cor-texto-suave: #a1a1aa;
+    --cor-texto-fraco: #8e8e99;
+    --cor-destaque: #818cf8;
+    --cor-destaque-hover: #a5b4fc;
+    --cor-destaque-texto: #09090b;
+    --cor-perigo: #f87171;
+    --cor-sucesso: #4ade80;
+    --sombra-p: none;
+  }
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+
+html {
+  height: 100%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  /* min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
+
+  min-height: 100dvh;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font-family: var(--font-base);
+  font-size: var(--texto-m);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+} */
+
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button{
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* tipografia base */
+h1, h2, h3, h4{
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+h1{
+  font-size: var(--texto-xg);
+}
+
+h2 {
+  font-size: var(--texto-g);
+}
+
+h3 {
+  font-size: var(--texto-m);
+}
+
+p{
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--cor-destaque);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color var(--transicao);
+}
+
+a:hover {
+  color: var(--cor-destaque-hover);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--cor-borda);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--cor-destaque) 25%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

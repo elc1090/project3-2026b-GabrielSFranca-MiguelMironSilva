@@ -1,0 +1,116 @@
+.page {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+    background: radial-gradient(ellipse at 50% 0, color-mix(in srgb, var(--cor-destaque) 12%, var(--cor-fundo)), var(--cor-fundo) 62%);
+}
+
+.brand {
+    align-self: center;
+    margin-bottom: 24px;
+    color: var(--cor-texto);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -.05em;
+    text-decoration: none;
+}
+
+.card {
+    width: min(100%, 460px);
+    padding: clamp(24px, 6vw, 42px);
+    border: 1px solid var(--cor-borda);
+    border-radius: 20px;
+    background: var(--cor-superficie);
+    box-shadow: 0 24px 80px #0002;
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+    color: var(--cor-destaque);
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+}
+
+.card h1 {
+    font-size: 2rem;
+}
+
+.description {
+    margin-top: 10px;
+    color: var(--cor-texto-suave);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+}
+
+.form label {
+    margin: 14px 0 6px;
+    font-size: .9rem;
+    font-weight: 650;
+}
+
+.form input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--cor-borda-forte);
+    border-radius: 10px;
+    background: var(--cor-fundo);
+}
+
+.form input:focus {
+    border-color: var(--cor-destaque);
+    outline: 2px solid color-mix(in srgb, var(--cor-destaque) 25%, transparent);
+}
+
+.form button {
+    margin-top: 22px;
+    padding: 13px 16px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--cor-destaque);
+    color: var(--cor-destaque-texto);
+    font-weight: 750;
+}
+
+.form button:hover {
+    background: var(--cor-destaque-hover);
+}
+
+.error {
+    margin-top: 14px;
+    color: var(--cor-perigo);
+    font-size: .9rem;
+}
+
+.switch {
+    margin-top: 22px;
+    text-align: center;
+    color: var(--cor-texto-suave);
+    font-size: .92rem;
+}
+
+.switch a {
+    font-weight: 700;
+}
+
+.back {
+    display: block;
+    margin-top: 24px;
+    text-align: center;
+    color: var(--cor-texto-fraco);
+    font-size: .9rem;
+    text-decoration: none;
+}
+
+.footer {
+    margin-top: 24px;
+    color: var(--cor-texto-fraco);
+    font-size: .85rem;
+}

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.models import User, UserMovie
-from app.routers import movies, auth, user_movies
+from app.routes import movies, auth, user_movies
 
 
 Base.metadata.create_all(bind=engine)
@@ -16,6 +16,8 @@ app = FastAPI(
 allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
     "https://effervescent-cranachan-cb04c0.netlify.app",
 ]
 
