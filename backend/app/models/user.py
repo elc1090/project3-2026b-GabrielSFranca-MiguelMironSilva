@@ -39,3 +39,9 @@ class User(Base):
         back_populates="user",
         cascade="all, delete-orphan",
     )
+
+    is_superuser: Mapped[bool] = mapped_column( #tabela para ver se é superusuário ou não
+        Boolean,
+        nullable=False,
+        default=False,
+    )
