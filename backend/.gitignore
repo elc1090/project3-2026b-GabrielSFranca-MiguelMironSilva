@@ -1,9 +1,14 @@
 .env*
 .venv/
 __pycache__/
+*.py[cod]
 srv-string.txt
 atlas-credentials.env
+filmsbr-review-backend.patch
 
 # Database files
 *.db
 *.sqlite
+
+# Local SQLite database
+backend/webapp_filmes.db
