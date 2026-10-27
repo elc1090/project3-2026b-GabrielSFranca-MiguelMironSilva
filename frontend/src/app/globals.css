@@ -1,7 +1,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  color-scheme: light dark;
+  color-scheme: light;
 
   
   /* Cores: tema claro */
@@ -51,7 +51,7 @@
 
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -70,7 +70,7 @@
     --cor-sucesso: #4ade80;
     --sombra-p: none;
   }
-}
+} */
 
 /* Reset */
 *,
@@ -196,8 +196,8 @@ hr {
   outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-}
+} */

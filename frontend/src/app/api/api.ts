@@ -85,9 +85,14 @@ export function obterFilme(id: string) {
   return request<Movie>(`/movies/${encodeURIComponent(id)}`);
 }
 export function obterCreditosFilme(id: string) {
-  return request<{ cast?: { id: number; name: string; character: string }[] }>(
-    `/movies/${encodeURIComponent(id)}/credits`,
-  );
+  return request<{
+    cast?: {
+      id: number;
+      name: string;
+      character: string;
+      profile_path: string | null;
+    }[];
+  }>(`/movies/${encodeURIComponent(id)}/credits`);
 }
 export function register(username: string, email: string, password: string) {
   return request<User>("/auth/register", {

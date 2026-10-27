@@ -10,6 +10,7 @@ export type MembroElenco={
   id: number;
   name: string;
   character: string;
+  profile_path: string | null;
 }
 
 // // dados do filme na The Movie DataBase API

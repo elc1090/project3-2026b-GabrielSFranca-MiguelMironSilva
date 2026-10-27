@@ -1,6 +1,7 @@
 import type {UserCreate} from "../types/user";
 import {FormEvent, useState} from "react";
 import Link from "next/link";
+import {Botao} from "@/components/botao/Botao";
 
 function Header(){
     return(
@@ -41,9 +42,22 @@ export default function RegisterFormPage(){
             <form onSubmit={handleSubmit}>
                     <div>
                         {/* rotulo-entrada nome de usuario */}
-                        <label htmlFor="username">Nome de usuário </label>
+                        <label 
+                            htmlFor="username"
+                        >
+                            Nome de usuário 
+                        </label>
 
-                        <input id="username" name="username" type="text" value={formData.username} minLength={4} maxLength={20} required placeholder="Como devemos chamar você?"/>
+                        <input 
+                            id="username" 
+                            name="username" 
+                            type="text" 
+                            value={formData.username} 
+                            minLength={4} 
+                            maxLength={20} 
+                            required 
+                            placeholder="Como devemos chamar você?"
+                        />
 
                         {/* email - falta o onChange()*/}
                         <label htmlFor="email">E-mail</label>
@@ -60,6 +74,14 @@ export default function RegisterFormPage(){
                         >
                             {loading? "Criando conta..." : "Criar conta"}
                             </button>
+                        
+                        <Botao 
+                            type="submit" 
+                            disabled={loading}>
+                            {loading? "Criando conta..." : "Criar conta"}
+                        </Botao>
+
+                        
                     </div>
                 </form>
 

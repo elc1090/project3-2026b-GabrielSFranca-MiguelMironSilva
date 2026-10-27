@@ -1,9 +1,77 @@
 "use client";
 
+import styles from "./page.module.css";
 import Link from "next/link";
+
+// import React, { FormEvent, useState } from "react";
+
+// import { Botao } from "@/components/botao/Botao";
+// import { api } from "./api/libapi";
+// import { Movie } from "@/app/types/movie";
+
+// function anoLancamento(filme: Movie){
+//     const ano=filme.release_date ? filme.release_date.split('-')[0] : "Sem ano";
+//     return(ano);
+// }
+
+// export default function PaginaPesquisa(){
+//     const [query, setQuery]=useState<string>('')
+//     const [movies, setMovies]=useState<Movie[]>([])
+//     const [loading, setLoading]=useState(false)
+
+//     async function handleSearch(event:FormEvent<HTMLFormElement>) {
+//         event.preventDefault();
+
+//         const term=query.trim();
+//         if(!term) return;
+//         setLoading(true);
+
+//         try{
+//             const dados=await api.pesquisaFilmes(term);
+//             setMovies(dados.results);
+//         }catch(error){
+//             setMovies([]);
+//             console.error("erro na resposta do backend", error);
+//         }finally{
+//             setLoading(false);
+//         }
+//     }
+
+//     if (loading) {
+//         return <div style={{ padding: '20px', fontFamily: 'sans-serif' }}>Retornando resultados...</div>;
+//     }
+
+//     return(
+//         <main className={styles.pagina}>
+//             <form onSubmit={handleSearch} className={styles.formulario}>
+//                 <input 
+//                     type="search"
+//                     className={styles.barrapesquisa}
+//                     value={query}
+//                     onChange={(event)=>setQuery(event.target.value)}
+//                     placeholder="Pesquise um filme pelo título"
+//                     aria-label="Titulo filme"
+//                 />
+//                 <Botao type="submit" disabled={loading}>
+//                     {loading ? "Pesquisando..." : "Pesquisar"}
+//                 </Botao>
+
+//                 <section className={styles.moviesgrid}>
+//                     {movies.map((movie)=>(
+//                         <Link key={movie.tmdb_id} href={`/movie/${movie.tmdb_id}`} className={styles.link}>
+//                             <h3>{movie.title}</h3>
+//                             <p>{anoLancamento(movie)}</p>
+//                         </Link>
+//                     ))}
+//                 </section>
+//             </form>
+//         </main>
+//     );
+// }
+
 import { FormEvent, useEffect, useState } from "react";
 import { obterUsuarioAtual, obterFilme, obterColecaoFilmes, estaAutenticado, Movie, pesquisaFilmes, User, limparToken } from "@/app/api/api";
-import styles from "./page.module.css";
+
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -34,8 +102,8 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
-      <header className={styles.header}><Link href="/" className={styles.brand}>FilmsBR</Link><span>Descubra e organize seus filmes</span></header>
+    <section className={styles.main}>
+      {/* <header className={styles.header}><Link href="/" className={styles.brand}>FilmsBR</Link><span>Descubra e organize seus filmes</span></header> */}
       <section className={styles.hero}>
         <p className={styles.eyebrow}>SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</p>
         <h1>Que filme você está procurando?</h1>
@@ -48,7 +116,7 @@ export default function Home() {
 
       {error && <p className={styles.error} role="alert">{error}</p>}
       {movies.length > 0 && <section className={styles.results}><h2>Resultados da busca</h2><div className={styles.moviegrid}>
-        {movies.map(movie => <Link key={movie.id} href={`/movies/${movie.id}`} className={styles.card}>
+        {movies.map(movie => <Link key={movie.id} href={`/movie/${movie.id}`} className={styles.card}>
           {movie.poster_path ? <img src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`} alt={`Pôster de ${movie.title}`} /> : <div className={styles.posterFallback}>Sem pôster</div>}
           <span className={styles.movieTitle}>{movie.title}</span><span className={styles.meta}>{movie.release_date?.slice(0, 4) || "Ano não informado"}</span>
         </Link>)}
@@ -67,6 +135,6 @@ export default function Home() {
           <div className={styles.authLinks}><Link href="/login" className={styles.authPrimary}>Entrar</Link><Link href="/register" className={styles.authSecondary}>Criar conta</Link></div>
         </>}
       </aside>
-    </main>
+    </section>
   );
 }
