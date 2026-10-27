@@ -1,5 +1,5 @@
 from typing import Optional
-from sqlalchemy import ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.database import Base
 
@@ -34,6 +34,13 @@ class UserMovie(Base):
 
     rating: Mapped[Optional[int]] = mapped_column(
         Integer,
+        nullable=True,
+    )
+
+    """Resenha escrita de um usuário sobre este filme, separada da nota numérica.
+    Avaliações vazias são normalizadas para `None` pelo esquema da requisição."""
+    review_text: Mapped[Optional[str]] = mapped_column(
+        Text,
         nullable=True,
     )
 

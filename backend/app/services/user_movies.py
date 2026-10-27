@@ -27,6 +27,26 @@ def get_all_movie_states(
     ).all()
 
 
+def _empty_movie_state(tmdb_id: str) -> dict:
+    return {
+        "tmdb_id": tmdb_id,
+        "favorite": False,
+        "watched": False,
+        "rating": None,
+        "review_text": None,
+    }
+
+
+def _has_personal_state(movie_state: UserMovie) -> bool:
+    #Uma resenha é motivo suficiente para manter a linha de filme do usuário.
+    return (
+        movie_state.favorite
+        or movie_state.watched
+        or movie_state.rating is not None
+        or movie_state.review_text is not None
+    )
+
+
 def update_movie_state(
     db: Session,
     user_id: int,
@@ -46,20 +66,12 @@ def update_movie_state(
             favorite=updates.get("favorite", False),
             watched=updates.get("watched", False),
             rating=updates.get("rating"),
+            review_text=updates.get("review_text"),
         )
 
-        # Don't create an empty record.
-        if (
-            not movie_state.favorite
-            and not movie_state.watched
-            and movie_state.rating is None
-        ):
-            return {
-                "tmdb_id": tmdb_id,
-                "favorite": False,
-                "watched": False,
-                "rating": None,
-            }
+        #Não se cria uma linha sem dados pessoais. Uma avaliação já conta.
+        if not _has_personal_state(movie_state):
+            return _empty_movie_state(tmdb_id)
 
         db.add(movie_state)
 
@@ -67,22 +79,11 @@ def update_movie_state(
         for field, value in updates.items():
             setattr(movie_state, field, value)
 
-        # If the user has removed all personal state,
-        # remove the database row as well.
-        if (
-            not movie_state.favorite
-            and not movie_state.watched
-            and movie_state.rating is None
-        ):
+        #Remove-se a linha apenas quando os campos de favorito, assistido, avaliação e resenha estiverem vazios.
+        if not _has_personal_state(movie_state):
             db.delete(movie_state)
             db.commit()
-
-            return {
-                "tmdb_id": tmdb_id,
-                "favorite": False,
-                "watched": False,
-                "rating": None,
-            }
+            return _empty_movie_state(tmdb_id)
 
     db.commit()
     db.refresh(movie_state)

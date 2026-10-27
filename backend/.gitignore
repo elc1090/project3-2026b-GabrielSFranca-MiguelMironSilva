@@ -3,6 +3,7 @@
 __pycache__/
 srv-string.txt
 atlas-credentials.env
+filmsbr-review-backend.patch
 
 # Database files
 *.db

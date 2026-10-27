@@ -56,6 +56,7 @@ def get_my_movie_state(
             "favorite": False,
             "watched": False,
             "rating": None,
+            "review_text": None,
         }
 
     return movie_state
