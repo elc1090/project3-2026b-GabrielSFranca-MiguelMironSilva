@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.models.user import User
 from app.schemas.admin import AdminUserUpdate
+from app.models.user_movie import UserMovie
 
 
 def list_users(db: Session) -> list[User]:
@@ -86,3 +87,26 @@ def delete_user(db: Session, user_id: int) -> bool:
         raise ValueError("Não pode se deletawr esse usuário") from exc
 
     return True
+
+
+def list_reviews(db: Session) -> list[dict]:
+    #Lista todas as resenhas com seus autores
+
+    rows = (
+        db.query(UserMovie, User.username)
+        .join(User, User.id == UserMovie.user_id)
+        .filter(UserMovie.review_text.is_not(None))
+        .order_by(UserMovie.id.asc())
+        .all()
+    )
+
+    return [
+        {
+            "user_id": movie.user_id,
+            "username": username,
+            "tmdb_id": movie.tmdb_id,
+            "review_text": movie.review_text,
+        }
+        for movie, username in rows
+    ]
+

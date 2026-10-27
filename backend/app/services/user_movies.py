@@ -109,3 +109,28 @@ def delete_movie_state(
     db.commit()
 
     return True
+
+
+def delete_user_review(
+    db: Session,
+    user_id: int,
+    tmdb_id: str,
+):
+    movie_state = get_movie_state(
+        db,
+        user_id,
+        tmdb_id,
+    )
+
+    if movie_state is None or movie_state.review_text is None:
+        return False
+
+    movie_state.review_text = None
+
+    if not _has_personal_state(movie_state):
+        db.delete(movie_state)
+
+    db.commit()
+
+    return True
+

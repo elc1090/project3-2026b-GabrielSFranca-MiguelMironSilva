@@ -18,3 +18,12 @@ class AdminUserUpdate(BaseModel):
     username: str | None = Field(default=None, min_length=3, max_length=30)
     email: EmailStr | None = None
     is_superuser: bool | None = None
+
+
+class AdminReviewResponse(BaseModel):
+    #Informações da avaliação disponíveis ao admin
+
+    user_id: int
+    username: str
+    tmdb_id: str
+    review_text: str

@@ -5,8 +5,9 @@ from sqlalchemy.orm import Session
 from app.auth import require_superuser
 from app.database import get_db
 from app.models.user import User
-from app.schemas.admin import AdminUserResponse, AdminUserUpdate
+from app.schemas.admin import AdminUserResponse, AdminUserUpdate, AdminReviewResponse
 from app.services import admin as admin_service
+from app.services.user_movies import delete_user_review
 
 router = APIRouter(
     prefix="/api/admin",
@@ -111,3 +112,37 @@ def delete_user(
         )
 
     return {"message": "Usuário deletado com sucesso"}
+
+
+@router.delete("/users/{user_id}/reviews/{tmdb_id}")
+def moderate_review(
+    user_id: int,
+    tmdb_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_superuser),
+):
+    deleted = delete_user_review(
+        db,
+        user_id,
+        tmdb_id,
+    )
+
+    if not deleted:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resenha não encontrada",
+        )
+
+    return {"message": "Avaliação deletada com sucesso"}
+
+
+@router.get(
+    "/reviews",
+    response_model=list[AdminReviewResponse],
+)
+def list_reviews(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_superuser),
+):
+    return admin_service.list_reviews(db)
+
