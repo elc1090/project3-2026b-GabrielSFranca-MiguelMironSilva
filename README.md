@@ -91,6 +91,8 @@ O histórico do repositório registra contribuições de Gabriel da Silva Franç
 
 Uma decisão importante foi manter os dados de catálogo no TMDB e persistir no SQLite apenas a relação do usuário com o filme. Assim, cada estado de favorito, visualização ou avaliação fica associado à conta e ao identificador do filme no catálogo. A autenticação usa senha armazenada como hash e token com prazo de expiração. Para desenvolvimento local, a configuração do frontend e a lista de origens CORS do backend permitem executar os dois serviços separadamente.
 
+A implementação do superusuário consistiu na simples adição de uma nova classe admin em serviços, routers e schemas para o backend, com as conexões apropriadas sendo feitas com o main.py.
+
 ### Trechos de código para destaque
 
 1. **Hash e verificação de senha** — `backend/app/services/auth.py`: `PasswordHash.recommended()` cria o hash no cadastro, e `password_hash.verify(...)` valida a senha no login sem armazená-la em texto puro.
