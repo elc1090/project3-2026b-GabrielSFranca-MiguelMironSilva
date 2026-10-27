@@ -53,3 +53,14 @@ def get_current_user(
 
     except InvalidTokenError:
         raise credentials_exception
+
+def require_superuser(
+    current_user: User = Depends(get_current_user),
+) -> User:
+    if not current_user.is_superuser:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Privilégios de admin necessários",
+        )
+
+    return current_user
