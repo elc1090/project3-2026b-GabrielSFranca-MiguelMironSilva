@@ -71,6 +71,7 @@ import Link from "next/link";
 
 import { FormEvent, useEffect, useState } from "react";
 import { obterUsuarioAtual, obterFilme, obterColecaoFilmes, estaAutenticado, Movie, pesquisaFilmes, User, limparToken } from "@/app/api/api";
+import {BarraPesquisa} from "@/components/barrapesquisa/BarraPesquisa";
 
 
 export default function Home() {
@@ -108,10 +109,12 @@ export default function Home() {
         <p className={styles.eyebrow}>SUA PRÓXIMA HISTÓRIA COMEÇA AQUI</p>
         <h1>Que filme você está procurando?</h1>
         <p>Pesquise no catálogo e monte sua biblioteca pessoal.</p>
-        <form className={styles.search} onSubmit={search}>
-          <input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Ex.: Interestelar" aria-label="Título do filme" />
-          <button type="submit" disabled={loading}>{loading ? "Pesquisando…" : "Pesquisar"}</button>
-        </form>
+        <BarraPesquisa
+          query={query}
+          loading={loading}
+          onQueryChange={setQuery}
+          onSubmit={search}
+        />
       </section>
 
       {error && <p className={styles.error} role="alert">{error}</p>}
@@ -129,7 +132,7 @@ export default function Home() {
       </Link>)}</div> : <p className={styles.meta}>Sua biblioteca ainda está vazia. Marque um filme como favorito, assistido ou dê uma nota.</p>}</section>}
 
       <aside className={styles.account}>
-        {user ? <div className={styles.accountRow}><p>Olá, <strong>{user.username}</strong>. Suas alterações ficam salvas na sua conta.</p><button className={styles.secondary} onClick={() => { limparToken(); setUser(null); setLibrary([]); }}>Sair</button></div> : <>
+        {user ? <div className={styles.accountRow}><p>Olá, <strong>{user.username}</strong>. Suas alterações ficam salvas na sua conta.</p><div className={styles.authLinks}><Link href={`/users/${user.id}`} className={styles.authSecondary}>Meu perfil</Link><button className={styles.secondary} onClick={() => { limparToken(); setUser(null); setLibrary([]); }}>Sair</button></div></div> : <>
           <h2>Acesse sua biblioteca</h2>
           <p>Entre para favoritar filmes, marcar os assistidos e registrar suas notas.</p>
           <div className={styles.authLinks}><Link href="/login" className={styles.authPrimary}>Entrar</Link><Link href="/register" className={styles.authSecondary}>Criar conta</Link></div>

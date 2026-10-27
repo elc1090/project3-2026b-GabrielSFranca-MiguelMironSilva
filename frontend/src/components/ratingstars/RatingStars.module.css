@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.starButton {
+  display: grid;
+  place-items: center;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  color: var(--cor-destaque);
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.starButton:hover {
+  transform: scale(1.08);
+}
+
+.starButton:focus-visible {
+  outline: 2px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+.starButton:disabled {
+  cursor: default;
+}
+
+.starButton:disabled:hover {
+  transform: none;
+}
+
+.value {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}

@@ -87,11 +87,86 @@ Acesse `http://localhost:3000`. O cliente da API usa `http://127.0.0.1:8000/api`
 
 ### Processo
 
-O histórico do repositório registra contribuições de Gabriel da Silva França e Miguel Miron Silva. A implementação está organizada em duas partes: o frontend concentra as telas e a comunicação com a API; o backend reúne autenticação, acesso ao banco e integração com o TMDB. O fluxo principal conecta pesquisa e detalhes de filmes à biblioteca associada à conta.
+# 🎬 Desenvolvimento do Front-end do Web App
 
-Uma decisão importante foi manter os dados de catálogo no TMDB e persistir no SQLite apenas a relação do usuário com o filme. Assim, cada estado de favorito, visualização ou avaliação fica associado à conta e ao identificador do filme no catálogo. A autenticação usa senha armazenada como hash e token com prazo de expiração. Para desenvolvimento local, a configuração do frontend e a lista de origens CORS do backend permitem executar os dois serviços separadamente.
+## 🖥️ 1. Desenvolvimento da interface
 
-A implementação do superusuário consistiu na simples adição de uma nova classe admin em serviços, routers e schemas para o backend, com as conexões apropriadas sendo feitas com o main.py. A implementação do sistema de avaliações/resenhas também foi similar, consistindo em modificações aos arquivos user_movies.py e a adição de novas colunas na base de dados.
+O desenvolvimento do front-end do web app foi realizado utilizando **Next.js com TypeScript**, buscando separar a aplicação em componentes reutilizáveis e manter uma estrutura organizada.
+
+A interface foi construída com **CSS Modules**, permitindo que os estilos de cada componente fossem isolados e evitando conflitos entre diferentes partes da aplicação.
+
+Entre as principais funcionalidades desenvolvidas estão:
+
+- 🔎 busca e visualização de filmes;
+- 🎬 página de detalhes do filme;
+- ⭐ avaliação pessoal de **1 a 10**;
+- ❤️ gerenciamento de filmes favoritos;
+- 👁️ controle de filmes assistidos;
+- 👤 tela de perfil do usuário;
+- 🔐 cadastro e login.
+
+O front-end também possui uma camada específica para comunicação com a API, responsável por centralizar as requisições realizadas ao backend.
+
+---
+
+## 🔐 2. Autenticação
+
+Um dos principais pontos do desenvolvimento foi a implementação do processo de **autenticação**.
+
+> **Autenticação** é o processo de verificar **quem é o usuário**.
+
+No fluxo desenvolvido, o usuário informa suas credenciais na tela de login. O front-end envia esses dados para o backend, que verifica as informações e, caso estejam corretas, retorna um **access token**.
+
+Esse token é armazenado durante a sessão do usuário no navegador.
+
+A partir desse momento, as requisições que precisam identificar o usuário recebem o token no cabeçalho HTTP:
+
+```text
+Authorization: Bearer <access_token>
+```
+
+Dessa forma, o backend consegue identificar quem está realizando cada requisição.
+
+---
+
+## 🛡️ 3. Autorização
+
+Além da autenticação, foi necessário implementar o conceito de **autorização**.
+
+> **Autorização** determina **o que um usuário autenticado pode acessar ou modificar**.
+
+Isso é especialmente importante para os dados pessoais da aplicação.
+
+Por exemplo, quando o usuário marca um filme como favorito, como assistido ou atribui uma nota, essa informação é associada à sua própria conta.
+
+O front-end utiliza os endpoints protegidos da API para consultar e modificar esses dados, enquanto o backend verifica o token recebido antes de permitir a operação.
+
+Podemos resumir o fluxo assim:
+
+| Etapa | Processo |
+|---|---|
+| 👤 1 | Usuário realiza o login |
+| 🔑 2 | Backend valida as credenciais |
+| 🎟️ 3 | Backend retorna o token |
+| 💾 4 | Front-end mantém o token durante a sessão |
+| 📡 5 | Token é enviado nas requisições protegidas |
+| 🛡️ 6 | Backend identifica e autoriza o usuário |
+| 🎬 7 | Dados pessoais são consultados ou alterados |
+
+---
+
+## 👤 4. Perfil e dados pessoais
+
+Com a autenticação funcionando, foi possível desenvolver uma tela de **perfil do usuário**.
+
+Nela, são apresentados os filmes associados à conta, principalmente os **favoritos** e os **assistidos**.
+
+A aplicação consulta os estados pessoais armazenados pelo backend e combina essas informações com os dados dos filmes para montar os cartões exibidos na interface.
+
+Isso permite que diferentes usuários tenham suas próprias coleções, sem misturar seus dados.
+
+---
+
 
 ### Trechos de código para destaque
 

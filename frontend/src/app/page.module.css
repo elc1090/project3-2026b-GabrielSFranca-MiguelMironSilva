@@ -82,14 +82,6 @@
     letter-spacing: .12em;
 }
 
-.search {
-    display: flex;
-    width: min(650px, 100%);
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.search input,
 .authForm input {
     min-width: 0;
     flex: 1;
@@ -99,7 +91,6 @@
     background: var(--cor-fundo);
 }
 
-.search button,
 .authForm button,
 .selected {
     padding: 12px 20px;
@@ -110,7 +101,6 @@
     font-weight: 700;
 }
 
-.search button:hover,
 .authForm button:hover {
     background: var(--cor-destaque-hover);
 }
@@ -300,10 +290,6 @@
 
     .hero {
         padding: 48px 18px;
-    }
-
-    .search {
-        flex-direction: column;
     }
 
     .detailContent {

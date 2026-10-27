@@ -133,6 +133,36 @@
   color: var(--cor-texto-suave);
 }
 
+.movieActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.stateButton {
+  padding: 10px 14px;
+  border: 1px solid var(--cor-borda-forte);
+  border-radius: 9px;
+  background: var(--cor-superficie-2);
+  color: var(--cor-texto);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stateButtonActive {
+  border-color: var(--cor-destaque);
+  background: var(--cor-destaque);
+  color: var(--cor-destaque-texto);
+}
+
+.stateButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
 @media (max-width: 560px) {
   .page {
     width: min(100% - 24px, 1000px);
