@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.models import User, UserMovie
-from app.routes import movies, auth, user_movies
+from app.routes import movies, auth, user_movies, admin
+
 
 
 Base.metadata.create_all(bind=engine)
@@ -32,6 +33,7 @@ app.add_middleware(
 app.include_router(movies.router)
 app.include_router(auth.router)
 app.include_router(user_movies.router)
+app.include_router(admin.router)
 
 
 @app.get("/")
