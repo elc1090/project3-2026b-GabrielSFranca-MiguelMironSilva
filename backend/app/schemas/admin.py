@@ -2,7 +2,7 @@ from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class AdminUserResponse(BaseModel):
-    """Informações de usuário retornadas por endpoints administrativos."""
+    #Informações de usuário retornadas por endpoints administrativos.
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -13,7 +13,7 @@ class AdminUserResponse(BaseModel):
 
 
 class AdminUserUpdate(BaseModel):
-    """Campos que um administrador pode atualizar na conta de outro usuário."""
+    #Campos que um administrador pode atualizar na conta de outro usuário.
 
     username: str | None = Field(default=None, min_length=3, max_length=30)
     email: EmailStr | None = None
