@@ -6,3 +6,4 @@ requests
 pwdlib[argon2]
 pyjwt
 python-multipart
+email-validator
