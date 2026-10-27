@@ -1,13 +1,16 @@
-import React from "react";
+import styles from "./Header.module.css"
 
-// interface Props{
-//     id: number;
-//     texto: string;
-// }
-export function Header(){
-    return (
-        <header>
-            <h1>FilmsBR</h1>
+interface Props{
+    titulo: string;
+}
+export function Header({ titulo }: Props){
+    return(
+        <header className={styles.header}>
+            <h1 className={styles.titulo}>{titulo}</h1>
         </header>
     );
 }
+
+//export function funct(num: number, texto: string, usuario: Usuario[]): string{
+//     return texto;
+// }

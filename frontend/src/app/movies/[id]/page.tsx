@@ -36,8 +36,8 @@ export default function MoviePage({ params }: PageProps<"/movies/[id]">) {
     finally { setSaving(false); }
   }
 
-  return <main className={styles.main}>
-    <header className={styles.header}><Link href="/" className={styles.brand}>FilmsBR</Link><Link href="/">← Voltar à busca</Link></header>
+  return <section className={styles.main}>
+    <div className={styles.header}><Link href="/" className={styles.brand}>FilmsBR</Link><Link href="/">← Voltar à busca</Link></div>
     {error && <p className={styles.error} role="alert">{error}</p>}
     {!movie && !error && <p className={styles.empty}>Carregando filme…</p>}
     {movie && <article className={styles.detail}>
@@ -45,10 +45,10 @@ export default function MoviePage({ params }: PageProps<"/movies/[id]">) {
       <div className={styles.detailContent}>
         {movie.poster_path && <img className={styles.detailPoster} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`Pôster de ${movie.title}`} />}
         <div className={styles.detailInfo}><p className={styles.eyebrow}>DETALHES DO FILME</p><h1>{movie.title}</h1>
-          <p className={styles.meta}>{movie.release_date?.slice(0, 4) || "Ano não informado"}{movie.runtime ? ` · ${movie.runtime} min` : ""}{movie.vote_average ? ` · ★ ${movie.vote_average.toFixed(1)}` : ""}</p>
+          <span className={styles.meta}>{movie.release_date?.slice(0, 4) || "Ano não informado"}{movie.runtime ? ` · ${movie.runtime} min` : ""}{movie.vote_average ? ` · ★ ${movie.vote_average.toFixed(1)}` : ""}</span>
           {movie.genres?.length ? <p className={styles.meta}>{movie.genres.map(g => g.name).join(" · ")}</p> : null}
-          <h2>Sinopse</h2><p>{movie.overview || "Sinopse indisponível."}</p>
-          <h2>Elenco</h2><p>{cast.length ? cast.map(person => `${person.name} (${person.character})`).join(" · ") : "Elenco indisponível."}</p>
+          <h2>SINOPSE</h2><p>{movie.overview || "Sinopse indisponível."}</p>
+          <h2>ELENCO</h2><p>{cast.length ? cast.map(person => `${person.name} (${person.character})`).join(" · ") : "Elenco indisponível."}</p>
           {user && state && <div className={styles.movieActions}>
             <button className={state.favorite ? styles.selected : styles.secondary} disabled={saving} onClick={() => void update({ favorite: !state.favorite })}>{state.favorite ? "♥ Favorito" : "♡ Favoritar"}</button>
             <button className={state.watched ? styles.selected : styles.secondary} disabled={saving} onClick={() => void update({ watched: !state.watched })}>{state.watched ? "✓ Assistido" : "Marcar como assistido"}</button>
@@ -58,5 +58,5 @@ export default function MoviePage({ params }: PageProps<"/movies/[id]">) {
         </div>
       </div>
     </article>}
-  </main>;
+  </section>;
 }

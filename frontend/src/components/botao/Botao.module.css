@@ -1,0 +1,21 @@
+.botao{
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid rgb(32, 32, 32);
+    align-items: center;
+    justify-content: center;
+    background-color: var(--cor-foco);
+}
+
+.botao:hover{
+    background-color: var(--cor-destaque-hover);
+}
+
+.botao:active{
+    transform: scale(0.98);
+}
+
+.botao:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
