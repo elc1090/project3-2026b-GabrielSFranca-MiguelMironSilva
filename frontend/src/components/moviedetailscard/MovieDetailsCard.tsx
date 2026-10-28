@@ -3,13 +3,23 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
+  atualizarEstadoFilme,
   obterCreditosFilme,
+  obterEstadoFilme,
   obterFilme,
+  estaAutenticado,
+  type MovieState,
   type Movie,
 } from "@/app/api/api";
 import styles from "./MovieDetailsCard.module.css";
 
 import {MembroElenco} from "@/app/types/movie";
+
+type MovieLibraryStatus = {
+  movieId: string;
+  state?: MovieState;
+  error?: string;
+};
 
 // type MembroElenco = {
 //   id: number;
@@ -25,6 +35,13 @@ export function MovieDetailsCard({
   const [movie, setMovie] = useState<Movie | null>(null);
   const [cast, setCast] = useState<MembroElenco[]>([]);
   const [error, setError] = useState("");
+  const [libraryStatus, setLibraryStatus] =
+    useState<MovieLibraryStatus | null>(null);
+  const [savingState, setSavingState] = useState(false);
+  const isAuthenticated = estaAutenticado();
+  const currentLibraryStatus =
+    libraryStatus?.movieId === movieId ? libraryStatus : null;
+  const movieState = currentLibraryStatus?.state ?? null;
 
   useEffect(() => {
     let cancelled = false;
@@ -63,6 +80,57 @@ export function MovieDetailsCard({
       cancelled = true;
     };
   }, [movieId]);
+
+  useEffect(() => {
+    if (!movieId) return;
+
+    let cancelled = false;
+
+    if (isAuthenticated) {
+      obterEstadoFilme(movieId)
+        .then((state) => {
+          if (!cancelled) setLibraryStatus({ movieId, state });
+        })
+        .catch((cause: unknown) => {
+          if (!cancelled) {
+            setLibraryStatus({
+              movieId,
+              error:
+                cause instanceof Error
+                  ? cause.message
+                  : "Não foi possível carregar o estado do filme.",
+            });
+          }
+        });
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isAuthenticated, movieId]);
+
+  async function updateMovieState(
+    changes: Partial<Pick<MovieState, "favorite" | "watched">>,
+  ) {
+    if (!movieId || !movieState) return;
+
+    setSavingState(true);
+    try {
+      const state = await atualizarEstadoFilme(movieId, changes);
+      setLibraryStatus({ movieId, state });
+    } catch (cause: unknown) {
+      setLibraryStatus({
+        movieId,
+        state: movieState,
+        error:
+          cause instanceof Error
+            ? cause.message
+            : "Não foi possível salvar o estado do filme.",
+      });
+    } finally {
+      setSavingState(false);
+    }
+  }
 
   return (
     <section className={styles.page}>
@@ -118,6 +186,61 @@ export function MovieDetailsCard({
                 <h2>Sinopse</h2>
                 <p>{movie.overview || "Sinopse indisponível."}</p>
               </section>
+
+              {isAuthenticated ? (
+                <div className={styles.movieActions}>
+                  {movieState ? (
+                    <>
+                      <button
+                        type="button"
+                        className={`${styles.stateButton} ${
+                          movieState.favorite ? styles.stateButtonActive : ""
+                        }`}
+                        aria-pressed={movieState.favorite}
+                        disabled={savingState}
+                        onClick={() =>
+                          void updateMovieState({
+                            favorite: !movieState.favorite,
+                          })
+                        }
+                      >
+                        {movieState.favorite ? "♥ Favorito" : "♡ Favoritar"}
+                      </button>
+                      <button
+                        type="button"
+                        className={`${styles.stateButton} ${
+                          movieState.watched ? styles.stateButtonActive : ""
+                        }`}
+                        aria-pressed={movieState.watched}
+                        disabled={savingState}
+                        onClick={() =>
+                          void updateMovieState({
+                            watched: !movieState.watched,
+                          })
+                        }
+                      >
+                        {movieState.watched
+                          ? "✓ Assistido"
+                          : "Marcar como assistido"}
+                      </button>
+                    </>
+                  ) : currentLibraryStatus?.error ? null : (
+                    <p className={styles.message} role="status">
+                      Carregando sua biblioteca...
+                    </p>
+                  )}
+                  {currentLibraryStatus?.error && (
+                    <p className={styles.message} role="alert">
+                      {currentLibraryStatus.error}
+                    </p>
+                  )}
+                </div>
+              ) : (
+                <p className={styles.message}>
+                  Entre na sua conta para favoritar ou marcar este filme como
+                  assistido.
+                </p>
+              )}
             </div>
           </section>
 

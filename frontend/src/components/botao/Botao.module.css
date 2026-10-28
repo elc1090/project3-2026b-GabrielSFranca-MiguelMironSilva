@@ -1,21 +1,29 @@
-.botao{
+.botao {
     cursor: pointer;
-    text-decoration: none;
+    min-width: 170px;
+    min-height: 64px;
+    padding: 14px 24px;
+    /* border-radius: 12px; */
+    background: var(--cor-destaque);
+    color: var(--cor-destaque-texto);
+    font: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
     border: 1px solid rgb(32, 32, 32);
     align-items: center;
     justify-content: center;
-    background-color: var(--cor-foco);
+    text-transform: uppercase;
 }
 
-.botao:hover{
+.botao:hover {
     background-color: var(--cor-destaque-hover);
 }
 
-.botao:active{
+.botao:active {
     transform: scale(0.98);
 }
 
-.botao:disabled{
+.botao:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
