@@ -1,32 +1,39 @@
 // frontend/src/app/api/api.ts
-const PORT=8000
-export const API_URL=process.env.NEXT_PUBLIC_API_BASE_URL ?? `http://127.0.0.1:${PORT}/api`
-export const IMAGEM_URL="https://image.tmdb.org/t/p/w500"
+const PORT=8000;
+export const API_URL=process.env.NEXT_PUBLIC_API_BASE_URL ?? `http://127.0.0.1:${PORT}/api`;
+export const IMAGEM_URL="https://image.tmdb.org/t/p/";
 
 // importacao como tipo
 import type {
     MovieSearchResponse,
     MovieDetailsType,
     MovieSavedState,
-} from "../types/movie"
+} from "../types/movie";
+
+import type { Movie } from "./api";
 
 import type{
   User
-} from "../types/user"
+} from "../types/user";
 
-const TOKEN_KEY="access_token"
+const TOKEN_KEY="access_token";
 
 function obterToken(){
-    if(typeof window==='undefined'){ return null}
-    return sessionStorage.getItem(TOKEN_KEY)
+    if(typeof window==='undefined'){ return null }
+    return sessionStorage.getItem(TOKEN_KEY);
 }
 
 function salvarToken(token: string){
-    sessionStorage.setItem(TOKEN_KEY, token)
+    sessionStorage.setItem(TOKEN_KEY, token);
 }
 
 function removerToken(){
-    sessionStorage.removeItem(TOKEN_KEY)
+    sessionStorage.removeItem(TOKEN_KEY);
+}
+
+export function anoLancFilme(filme: Movie): string{
+    const ano=filme.release_date ? filme.release_date.split('-')[0] : "Sem ano";
+    return(ano);
 }
 
 const estaAutenticado =()=> Boolean(obterToken())
@@ -73,7 +80,6 @@ async function request<T>(
 
   return dados as T;
 }
-
 
 export const api={
 
