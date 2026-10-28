@@ -1,0 +1,33 @@
+.linkCard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+  color: var(--cor-texto);
+  text-decoration: none;
+}
+
+.poster,
+.posterFallback {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  border-radius: 12px;
+  object-fit: cover;
+  background: var(--cor-texto-fraco);
+}
+
+.posterFallback {
+  display: grid;
+  place-items: center;
+  color: var(--cor-texto-fraco);
+}
+
+.titulo {
+  font-weight: 700;
+}
+
+.ano {
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
