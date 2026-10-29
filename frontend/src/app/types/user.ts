@@ -13,6 +13,13 @@ export interface UserIn{
     created_at: Date;
 }
 
+export interface AdminUser{
+    id: number;
+    username: string;
+    email: string;
+    is_superuser: boolean;
+}
+
 export type User={
     id: string | number;
     username: string;

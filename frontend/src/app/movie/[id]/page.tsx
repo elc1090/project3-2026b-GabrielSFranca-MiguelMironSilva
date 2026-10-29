@@ -1,4 +1,4 @@
-import { MovieDetailsCard } from "@/components/moviedetailscard/MovieDetailsCard"
+import { MovieDetailsCard } from "@/components/moviedetailscard/MovieDetailsCard";
 
 export default function FilmeDetalhesPagina(props: PageProps<"/movie/[id]">){
     return <MovieDetailsCard {...props} />
