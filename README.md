@@ -1,5 +1,7 @@
 # FilmsBR
 
+![Animacao](animacao/animacao_projeto2.gif)
+
 Aplicação web para pesquisar filmes e manter uma biblioteca pessoal. Com uma conta, a pessoa pode marcar filmes como favoritos ou assistidos e registrar uma avaliação. As informações de catálogo vêm da API do The Movie Database (TMDB).
 
 ## Acesso
