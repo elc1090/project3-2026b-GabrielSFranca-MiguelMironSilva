@@ -1,10 +1,12 @@
 # FilmsBR
 
+![Animacao](animacao/animacao.gif)
+
 Aplicação web para pesquisar filmes e manter uma biblioteca pessoal. Com uma conta, a pessoa pode marcar filmes como favoritos ou assistidos e registrar uma avaliação. As informações de catálogo vêm da API do The Movie Database (TMDB).
 
 ## Acesso
 
-Aplicação publicada: [https://effervescent-cranachan-cb04c0.netlify.app](https://effervescent-cranachan-cb04c0.netlify.app)
+Aplicação publicada: [https://filmsbr.netlify.app](filmsbr.netlify.app)
 
 ## Desenvolvedores
 

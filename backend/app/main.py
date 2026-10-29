@@ -7,6 +7,19 @@ from app.routers import movies, auth, user_movies, admin
 
 Base.metadata.create_all(bind=engine)
 
+with engine.begin() as connection:
+    columns = connection.exec_driver_sql(
+        "PRAGMA table_info(users)"
+    ).fetchall()
+
+    if columns and not any(
+        column[1] == "is_superuser" for column in columns
+    ):
+        connection.exec_driver_sql(
+            "ALTER TABLE users "
+            "ADD COLUMN is_superuser BOOLEAN NOT NULL DEFAULT 0"
+        )
+
 
 app = FastAPI(
     title="Webapp Filmes API",
