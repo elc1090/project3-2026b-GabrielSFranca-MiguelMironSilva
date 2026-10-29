@@ -44,14 +44,14 @@ export function MovieDetailsCard({
   const movieState = currentLibraryStatus?.state ?? null;
 
   useEffect(() => {
-    let cancelled = false;
+    let cancelado = false;
 
     params.then(({ id }) => {
-      if (!cancelled) setMovieId(id);
+      if (!cancelado) setMovieId(id);
     });
 
     return () => {
-      cancelled = true;
+      cancelado = true;
     };
   }, [params]);
 
@@ -166,7 +166,7 @@ export function MovieDetailsCard({
             )}
 
             <div className={styles.movieInfo}>
-              {/* <p className={styles.eyebrow}>DETALHES DO FILME</p> */}
+              <p className={styles.eyebrow}>DETALHES DO FILME</p>
               <h1 className={styles.title}>{movie.title}</h1>
               <p className={styles.metadata}>
                 {movie.release_date?.slice(0, 4) || "Ano não informado"}

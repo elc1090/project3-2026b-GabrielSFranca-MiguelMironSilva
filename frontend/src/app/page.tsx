@@ -66,7 +66,7 @@ export default function Home() {
       </Link>)}</div> : <p className={styles.meta}>Sua biblioteca ainda está vazia. Marque um filme como favorito, assistido ou dê uma nota.</p>}</section>}
 
       <aside className={styles.account}>
-        {user ? <div className={styles.accountRow}><p>Olá, <strong>{user.username}</strong>. Suas alterações ficam salvas na sua conta.</p><div className={styles.authLinks}><button className={styles.secondary} onClick={() => { limparToken(); setUser(null); setLibrary([]); }}>Sair</button></div></div> : <>
+        {user ? <div className={styles.accountRow}><p>Olá, <strong>{user.username}</strong>. Suas alterações ficam salvas na sua conta.</p><div className={styles.authLinks}><Link href="/perfil" className={styles.authSecondary}>Meu perfil</Link>{user.is_superuser && <Link href="/admin" className={styles.authSecondary}>Administração</Link>}<button className={styles.secondary} onClick={() => { limparToken(); setUser(null); setLibrary([]); }}>Sair</button></div></div> : <>
           <h2>Acesse sua biblioteca</h2>
           <p>Entre para favoritar filmes, marcar os assistidos e registrar suas notas.</p>
           <div className={styles.authLinks}><Link href="/login" className={styles.authPrimary}>Entrar</Link><Link href="/register" className={styles.authSecondary}>Criar conta</Link>

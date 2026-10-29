@@ -121,6 +121,8 @@ export const api={
 }
 
 
+
+
 export async function cadastrarUsuario(username:string, email:string, password:string){
   return request<User>("/auth/register", {
     method: "POST",
