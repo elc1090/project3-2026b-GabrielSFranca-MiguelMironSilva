@@ -19,7 +19,7 @@ allowed_origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://effervescent-cranachan-cb04c0.netlify.app",
-    "https://filmsbr.netlify.ap",
+    "https://filmsbr.netlify.app",
 ]
 
 app.add_middleware(
