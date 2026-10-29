@@ -1,46 +1,36 @@
 "use client";
-
 import type { FormEventHandler } from "react";
 import styles from "./BarraPesquisa.module.css";
 import {Botao} from "../botao/Botao";
 
-type SearchBarProps = {
-  query: string;
-  loading: boolean;
+type BarraPesquisaProps = {
+  termo: string;
+  carregando: boolean;
   onQueryChange: (query: string) => void;
   onSubmit: FormEventHandler<HTMLFormElement>;
 };
 
 export function BarraPesquisa({
-  query,
-  loading,
+  termo,
+  carregando,
   onQueryChange,
   onSubmit,
-}: SearchBarProps) {
+}: BarraPesquisaProps) {
   return (
     <form className={styles.search} onSubmit={onSubmit}>
       <input
         type="search"
-        value={query}
+        value={termo}
         onChange={(event) => onQueryChange(event.target.value)}
-        placeholder="Ex.: Interestelar"
+        placeholder="Pesquise por um filme (ex. Titanic)"
         aria-label="Título do filme"
       />
-      {/* <button type="submit" disabled={loading}>
-        {loading ? "Pesquisando…" : "Pesquisar"}
-      </button> */}
       <Botao
         type="submit"
-        disabled={loading}
+        disabled={carregando}
         >
-        {loading ? "Pesquisando": "Pesquisar"}
+        {carregando ? "Pesquisando": "Pesquisar"}
       </Botao>
-
-      {/* <Botao
-        type="submit"
-        disabled={lo}
-        >
-      </Botao> */}
     </form>
   );
 }
