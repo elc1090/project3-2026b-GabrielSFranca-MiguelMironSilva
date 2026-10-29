@@ -88,4 +88,5 @@ def get_me(
         "id": str(current_user.id),
         "username": current_user.username,
         "email": current_user.email,
+        "is_superuser": current_user.is_superuser,
     }

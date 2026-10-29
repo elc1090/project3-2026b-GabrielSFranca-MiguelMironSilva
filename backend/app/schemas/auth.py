@@ -10,6 +10,7 @@ class UserResponse(BaseModel):
     id: str
     username: str
     email: str
+    is_superuser: bool = False
 
 class LoginRequest(BaseModel):
     identifier: str
