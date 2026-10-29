@@ -1,6 +1,6 @@
 # FilmsBR
 
-![Animacao](animacao/FilmsBR - Google Chrome 2026-10-29 08-04-12.gif)
+![Animacao](animacao/animacao.gif)
 
 Aplicação web para pesquisar filmes e manter uma biblioteca pessoal. Com uma conta, a pessoa pode marcar filmes como favoritos ou assistidos e registrar uma avaliação. As informações de catálogo vêm da API do The Movie Database (TMDB).
 
