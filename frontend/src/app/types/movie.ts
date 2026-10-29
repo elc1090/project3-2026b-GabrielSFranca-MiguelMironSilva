@@ -15,7 +15,7 @@ export type MembroElenco={
 
 // // dados do filme na The Movie DataBase API
 export type Movie={
-  tmdb_id: tmdbID; // id
+  tmdb_id?: tmdbID; // id
   id?: number | null; 
   title: string; // titulo
   overview?: string; // sinopse

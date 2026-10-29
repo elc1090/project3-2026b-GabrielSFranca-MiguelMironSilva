@@ -14,7 +14,18 @@ export type Movie = {
   genres?: { id: number; name: string }[];
 };
 
-export type User = { id: string; username: string; email: string };
+export type User = {
+  id: string;
+  username: string;
+  email: string;
+  is_superuser: boolean;
+};
+export type AdminUser = {
+  id: number;
+  username: string;
+  email: string;
+  is_superuser: boolean;
+};
 export type MovieState = {
   tmdb_id: string;
   favorite: boolean;
@@ -111,6 +122,24 @@ export async function login(identifier: string, password: string) {
 }
 export function obterUsuarioAtual() {
   return request<User>("/auth/me");
+}
+export function listarUsuariosAdmin() {
+  return request<AdminUser[]>("/admin/users");
+}
+export function atualizarUsuarioAdmin(
+  id: number,
+  changes: Partial<Pick<AdminUser, "username" | "email" | "is_superuser">>,
+) {
+  return request<AdminUser>(`/admin/users/${encodeURIComponent(id)}`, {
+    method: "PATCH",
+    body: JSON.stringify(changes),
+  });
+}
+export function excluirUsuarioAdmin(id: number) {
+  return request<{ message: string }>(
+    `/admin/users/${encodeURIComponent(id)}`,
+    { method: "DELETE" },
+  );
 }
 export function obterColecaoFilmes() {
   return request<MovieState[]>("/my-movies/");
