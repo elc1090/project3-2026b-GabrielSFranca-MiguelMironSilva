@@ -20,6 +20,18 @@ with engine.begin() as connection:
             "ADD COLUMN is_superuser BOOLEAN NOT NULL DEFAULT 0"
         )
 
+with engine.begin() as connection:
+    columns = connection.exec_driver_sql(
+        "PRAGMA table_info(user_movies)"
+    ).fetchall()
+
+    if columns and not any(
+        column[1] == "review_text" for column in columns
+    ):
+        connection.exec_driver_sql(
+            "ALTER TABLE user_movies ADD COLUMN review_text TEXT"
+        )
+
 
 app = FastAPI(
     title="Webapp Filmes API",

@@ -31,6 +31,7 @@ export type MovieState = {
   favorite: boolean;
   watched: boolean;
   rating: number | null;
+  review_text: string | null;
 };
 const TOKEN_KEY = "access_token";
 
@@ -149,7 +150,9 @@ export function obterEstadoFilme(id: string) {
 }
 export function atualizarEstadoFilme(
   id: string,
-  changes: Partial<Pick<MovieState, "favorite" | "watched" | "rating">>,
+  changes: Partial<
+    Pick<MovieState, "favorite" | "watched" | "rating" | "review_text">
+  >,
 ) {
   return request<MovieState>(`/my-movies/${encodeURIComponent(id)}`, {
     method: "PATCH",
