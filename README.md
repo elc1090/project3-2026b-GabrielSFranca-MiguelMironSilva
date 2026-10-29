@@ -4,7 +4,7 @@ Aplicação web para pesquisar filmes e manter uma biblioteca pessoal. Com uma c
 
 ## Acesso
 
-Aplicação publicada: [https://effervescent-cranachan-cb04c0.netlify.app](https://effervescent-cranachan-cb04c0.netlify.app)
+Aplicação publicada: [https://filmsbr.netlify.app](filmsbr.netlify.app)
 
 ## Desenvolvedores
 
