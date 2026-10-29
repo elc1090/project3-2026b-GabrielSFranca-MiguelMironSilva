@@ -33,6 +33,7 @@ allowed_origins = [
     "http://127.0.0.1:3000",
     "https://effervescent-cranachan-cb04c0.netlify.app",
     "https://project3-2026b-gabriel-s-franca-mig.vercel.app",
+    "https://filmsbr.netlify.app",
 ]
 
 app.add_middleware(
