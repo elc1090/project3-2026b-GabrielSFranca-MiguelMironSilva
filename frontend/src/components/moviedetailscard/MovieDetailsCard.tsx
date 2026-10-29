@@ -38,6 +38,10 @@ export function MovieDetailsCard({
   const [libraryStatus, setLibraryStatus] =
     useState<MovieLibraryStatus | null>(null);
   const [savingState, setSavingState] = useState(false);
+  const [reviewDraft, setReviewDraft] = useState("");
+  const [ratingDraft, setRatingDraft] = useState("");
+  const [reviewMessage, setReviewMessage] = useState("");
+  const [savingReview, setSavingReview] = useState(false);
   const isAuthenticated = estaAutenticado();
   const currentLibraryStatus =
     libraryStatus?.movieId === movieId ? libraryStatus : null;
@@ -89,7 +93,13 @@ export function MovieDetailsCard({
     if (isAuthenticated) {
       obterEstadoFilme(movieId)
         .then((state) => {
-          if (!cancelled) setLibraryStatus({ movieId, state });
+          if (!cancelled) {
+            setLibraryStatus({ movieId, state });
+            setReviewDraft(state.review_text ?? "");
+            setRatingDraft(
+              state.rating == null ? "" : String(state.rating),
+            );
+          }
         })
         .catch((cause: unknown) => {
           if (!cancelled) {
@@ -131,6 +141,35 @@ export function MovieDetailsCard({
       setSavingState(false);
     }
   }
+
+  async function saveReview() {
+  if (!movieId || !movieState) return;
+
+  setSavingReview(true);
+  setReviewMessage("");
+
+  try {
+    const state = await atualizarEstadoFilme(movieId, {
+      review_text: reviewDraft.trim() || null,
+      rating: ratingDraft === "" ? null : Number(ratingDraft),
+    });
+
+    setLibraryStatus({ movieId, state });
+    setReviewDraft(state.review_text ?? "");
+    setRatingDraft(
+      state.rating == null ? "" : String(state.rating),
+    );
+    setReviewMessage("Avaliação salva com sucesso!");
+  } catch (cause: unknown) {
+    setReviewMessage(
+      cause instanceof Error
+        ? cause.message
+        : "Não foi possível salvar sua avaliação.",
+    );
+  } finally {
+    setSavingReview(false);
+  }
+}
 
   return (
     <section className={styles.page}>
