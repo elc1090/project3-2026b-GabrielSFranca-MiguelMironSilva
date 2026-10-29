@@ -273,6 +273,61 @@ export function MovieDetailsCard({
                       {currentLibraryStatus.error}
                     </p>
                   )}
+                  {movieState && (
+                    <form
+                      className={styles.reviewForm}
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        void saveReview();
+                      }}
+                    >
+                      <h2>Minha avaliação</h2>
+
+                      <label htmlFor="personal-rating">Minha nota</label>
+                      <select
+                        id="personal-rating"
+                        value={ratingDraft}
+                        onChange={(event) => setRatingDraft(event.target.value)}
+                        disabled={savingReview}
+                      >
+                        <option value="">Sem nota</option>
+                        {Array.from({ length: 11 }, (_, n) => (
+                          <option key={n} value={n}>
+                            {n}/10
+                          </option>
+                        ))}
+                      </select>
+
+                      <label htmlFor="review-text">Minha resenha</label>
+                      <textarea
+                        id="review-text"
+                        value={reviewDraft}
+                        onChange={(event) => setReviewDraft(event.target.value)}
+                        placeholder="O que você achou deste filme?"
+                        maxLength={5000}
+                        rows={6}
+                        disabled={savingReview}
+                      />
+
+                      <p className={styles.reviewCounter}>
+                        {reviewDraft.length}/5000 caracteres
+                      </p>
+
+                      <button
+                        type="submit"
+                        className={styles.stateButton}
+                        disabled={savingReview}
+                      >
+                        {savingReview ? "Salvando..." : "Salvar avaliação"}
+                      </button>
+
+                      {reviewMessage && (
+                        <p className={styles.message} role="status" aria-live="polite">
+                          {reviewMessage}
+                        </p>
+                      )}
+                    </form>
+                  )}
                 </div>
               ) : (
                 <p className={styles.message}>
